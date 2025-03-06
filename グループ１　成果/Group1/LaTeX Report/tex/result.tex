@@ -1,0 +1,63 @@
+\section{Result Analysis}
+\label{sec:result}
+
+\subsection{Comparative Analysis of Different Topological Structures}
+We evaluated the performance of the multi-agent system using two different hierarchical structures: \textit{ABCCBCCC} and \textit{ABB}. The experiments were conducted with both the multi-agent system and a zero-shot agent. Both systems utilized GPT-4o-mini-2024-07-18 and were tested on the GSM8K dataset for the task of solving mathematical word problems. The results are summarized in Table \ref{tab:performance_metrics}. The ABCCBCCC structure consists of eight hierarchical levels, whereas the ABB structure has three levels.
+
+
+\begin{table}[h]
+  \centering
+  \caption{Performance for Different Hierarchy Structures}
+  \label{tab:performance_metrics}
+  \begin{tabular}{l|c|c}
+      \hline
+      \text{Hierarchy} & \text{ABCCBCCC} & \text{ABB} \\
+      \hline
+      \text{Total Questions} & 200 & 1000 \\
+      \hline
+      \text{Accuracy (Zero-Shot Agent)} & 71.5\% & 69.8\% \\
+      \hline
+      \text{Accuracy (Multi-Agent System)} & \textbf{92.5\%} & 90.0\% \\
+      \hline
+      \text{Accuracy Improvement} & \textbf{+21.0\%} & +20.2\% \\
+      \hline
+      \text{Time per Question (Zero-Shot)} & 2.73 sec & 2.93 sec \\
+      \hline
+      \text{Time per Question (Multi-Agent)} & 68.66 sec & \textbf{22.48 sec} \\
+      \hline
+      \text{Processing Time Increase} & \(\times 25.15\) & \(\boldsymbol{\times} \mathbf{7.67}\) \\
+      \hline
+      \text{Efficiency Score (Accuracy / Time)} & 1.35 & \textbf{4.00} \\
+      \hline
+      \text{Characteristics} & \textbf{Slow, High Accuracy} & \textbf{Balanced} \\
+      \hline
+  \end{tabular}
+\end{table}
+
+The results indicate that the multi-agent system significantly enhances accuracy by 21.0\% and 20.2\% for the ABCCBCCC and ABB structures, respectively. Specifically, the accuracy achieved by the multi-agent system is 92.5\% for the ABCCBCCC structure and 90.0\% for the ABB structure, demonstrating its superiority over the zero-shot agent. Furthermore, the findings suggest that both structural complexity and the number of nodes influence accuracy, with increased complexity and a greater number of nodes leading to improved performance. However, this improvement incurs a computational cost, as the processing time increases by a factor of 25.15 for the ABCCBCCC structure and 7.67 for the ABB structure, highlighting the inherent trade-off between accuracy and computational efficiency. 
+
+To quantitatively assess this trade-off, the efficiency score, defined as the ratio of accuracy to processing time, is introduced. The ABCCBCCC structure achieves an efficiency score of 1.35, indicating a highly accurate but computationally intensive system, whereas the ABB structure attains a score of 4.00, representing a more balanced trade-off. These results suggest that while the ABCCBCCC structure prioritizes accuracy at the expense of efficiency, the ABB structure provides a more optimal balance between accuracy and processing time.
+
+Furthermore, beyond computational efficiency, the financial cost associated with running the multi-agent system must also be considered. In this system, each node hosts multiple agents that iteratively generate responses and engage in debates. As a result, the number of requests to the LLM model increases proportionally with the number of nodes and agents, potentially leading to significantly higher costs.
+
+\subsection{Conversation Analysis}
+Through directly looking into the interaction between agents in the hierarchical debate structures, we can gain insights as to how the debate process contributes to the improved accuracy we observed in the experiment statistics. In addition to the debate, it is important to note the contributions of the Prompt Generator and the Checker Agent, which works to break down the problem in a defined way and ensures convergence to a single final answer. This provides structure to the debate process, ensuring consistent results. 
+
+The major advantage of the multi-agent system is its ability to self-correct through peer review, reducing the likelihood of individual errors by AI agents affecting the final results. Even if some or all AI agents may have the wrong answer initially, the debate process allows them to build on their previous attempts and collaborate, guiding them towards converging with the correct answer eventually.
+
+\subsubsection{Example 1: Quick Convergence}
+The following is an example of a quick convergence from the ABB hierarchy's conversation history, testing its capability against 1000 questions. The question was the following:
+
+\textit{"Janet’s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for 2 dollars per fresh duck egg. How much in dollars does she make every day at the farmers' market?"}
+
+In this example, both agents correctly calculated that there were 9 eggs left, and 18 dollars in revenue. Since they both arrived at the same conclusion, the Checker Agent recognized the convergence and terminated the debate.
+
+\subsubsection{Example 2: Delayed Convergence}
+While oftentimes the AI agents arrive at the same answer in the first round, there are times when they disagree, and a debate takes place until they come to an agreement. The following is an example from the BCC (part of ABCCBCCC) conversation history when tested with 200 questions. The question was:
+
+\textit{"Josh decides to try flipping a house. He buys a house for 80,000 dollars and then puts in 50,000 dollars in repairs. This increased the value of the house by 150 percent. How much profit did he make?"}
+
+While the correct answer was 70,000 dollars, both agents initially arrived at an incorrect answer. Agent 1 incorrectly computed the total expenditure instead of the profit, declaring the answer to be 130,000. Agent 2 incorrectly added the percentage increase rather than multiplying it, declaring 200,000. The Checker Agent detected the disagreement between the two agents, and the debate continued into the next round. In the second round, Agent 1 recognized their misunderstanding by recognizing that the question specifically asked for profit and not the total cost. Meanwhile, Agent 2 also adjusted their answer after seeing Agent 1's reasoning and recognizing that they were supposed to multiply the percentage rather adding it. After this, both agents converged at the correct answer, 70,000 dollars. The Checker Agent validated that both agents came to the same answer, and terminated the debate.
+
+This highlights the importance of the debate system and having multiple agents in arriving to an accurate answer. Even with both agents arriving at the wrong answer initially, they reviewed each other's responses and recognized their own wrongs, ultimately converging on the correct answer. With a zero-shot agent, such debate would have never taken place, and the initial wrong answers would have been considered the final. Such an example indicates that increased debate, with potentially more agents, would further help to increase the accuracy of the answers, although this would require more computational overhead.
+

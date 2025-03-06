@@ -1,0 +1,77 @@
+\section{Model}
+\label{sec:model}
+
+\subsection{Introduction}
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[->,
+    shorten >=2pt,
+    >=stealth,
+    node distance=3cm,
+    on grid,
+    state/.style={rectangle, rounded corners, draw=black, fill=blue!10, inner sep=8pt, minimum size=1cm, text centered, font=\sffamily},
+    mystyle/.style={->, double=blue, thick, black!70}
+    ]
+    % Nodes
+    \node[state] (T1) {DNA};
+    \node[state] (T4) [below left=of T1] {$S_2$};
+    \node[state] (T3) [left=of T4] {$S_1$};
+    \node[below right=of T1] (TD) {$\dots$};
+    \node[above=of T1] (TE) {INPUT};
+    \node[state] (T5) [right=of TD] {$S_n$};
+    \node[state] (T6) [below right=of T4] {Aggregator};
+    % Edges
+    \path (TE) edge [{->, double=red,  thick, red!70}] (T1);
+    \path (T1) edge [mystyle] (T3);
+    \path (T1) edge [mystyle] (T4);
+    \path (T1) edge [mystyle] (T5);
+    \path (T3) edge [mystyle] (T6);
+    \path (T4) edge [mystyle] (T6);
+    \path (T5) edge [mystyle] (T6);
+    \path (T6) edge [{->, double=blue!50,  thin, blue!50}] (T1);
+    \path (T6) edge [{->, double=blue!50,  thin, blue!50}] (T1);
+    \path (T6) edge [{->, double=blue!50, thick, blue!50}] (T1);
+\end{tikzpicture}
+    \caption{Graph depicting the basic idea of the model.}
+    \label{fig:basicmodel}
+\end{figure}
+
+The model consists of a cyclic feedback loop that can be simplified as follows. The DNA node receives a problem to solve as input and decides how many specialist nodes (referred to as stem cell nodes) and how many agents will be needed to solve that problem. Consequently, the specialist groups answer and debate within the group for an indefinite number of rounds. Once the debate rounds are over, every agent passes their answer to the aggregator node, who will be in charge of summarizing the responses from each of the $n$ stem cell nodes while still maintaining the contents. Finally, the aggregator node will pass this summary back to the DNA node, who will evaluate the responses and choose whether the final answer is satisfactory or not. If it is, then the final answer will be provided by the DNA node from the information gathered. If not, the DNA node will decide whether a rearrangement of agents or specializations is needed and have another iteration of the model until it is satisfied with the final answer. In figure \ref{fig:basicmodel}, a basic idea of the model can be observed. Each $S_i$ on the graph will be a stem cell node.
+
+\subsection{DNA node}
+The DNA node is the central and most critical component of this structure. It specifically plays two important distinctive roles:
+\begin{enumerate}
+    \item \textbf{Determining Specialist Groups:} When a query is received, the DNA node analyzes its complexity and requirements. Based on this analysis, it determines the optimal number of specialists needed and assigns specific roles to each. These roles are tailored to the context of the query, such as economists, politicians, or scientists, depending on the domain of the question and are freely chosen. 
+    
+    \item \textbf{Evaluating Specialist Outputs:} Once the specialist groups have collectively worked on the query, their results are aggregated and sent back to the DNA node. At this stage, the DNA node critically evaluates the quality of the aggregated answers and decides the next step, which, as explained previously, depends if the DNA believes if consensus has been reached and the provided answer is satisfactory (makes sense given the context and is supported by explanations).
+    
+\end{enumerate}
+Over time, the DNA node will improve the specialization assignments based on feedback from previous interactions. By analyzing past performance and results, it can make more effective decisions about group composition, role assignment, and evaluation criteria. This self-adaptive capability ensures that the system becomes increasingly capable of addressing questions with higher precision.
+
+\subsection{Stem Cell node}
+The $n$ stem cell nodes, activated by the DNA node, play a key role in the generation of diverse and comprehensive answers to a given question. Each stem cell node operates within a designated role (e.g. economist, politician, scientist) and contributes to solving the query using specific methods and perspectives based on that particular role. The process of activating multiple stem cell nodes with different roles to answer the same question is similar to initiating weights of different distributions during deep learning. Each stem cell node approaches the question independently, making full use of its specific role to approximate the true answer from various points of view. This diversity not only can enhance the structure's ability to detect flaws by identifying significant inconsistencies between answers, but also improves comprehensiveness by integrating multiple methodologies and viewpoints into the problem-solving process. 
+
+After generating individual responses, the specialists assigned to the same role are grouped together for a simulated discussion. Within each discussion, the specialists will review its initial answer and compare it with the responses of others for an indefinite number of rounds. Each agent then updates its response based on insights gained from others in the same stem cell node, which fosters collaborative refinement, allowing the group to collectively approximate a more accurate and robust response. 
+
+After updating their responses, each agent makes one of two decisions:
+\begin{enumerate}
+    \item \textbf{Satisfactory}: If the node is confident in its updated answer, it indicates satisfaction and finalizes its response.
+    \item \textbf{Dissatisfactory}: If the node finds its updated answer insufficient or considers further improvement is possible, it requests another round of discussion. In this case, the node will incorporate the refined answers of others into its own response during the next iteration.
+\end{enumerate}
+This iterative cycle continues until at least half of the agents in the stem cell node are satisfied.
+
+Once the within-group discussion concludes, all the individual responses from agents in the stem cell node are aggregated into a single combined response. This aggregated answer represents a consensus or best approximation from the group and is then passed to the DNA node for evaluation.
+
+We believe the stem cell nodes have the following advantages over single agent models:
+\begin{enumerate}
+    \item \textbf{Improved Accuracy}: having rounds of discussion and diverse perspectives allow errors and inconsistencies to be identified and resolved.
+    \item \textbf{Dynamic Collaboration}: The mechanism of simulated discussions ensures that each agent contributes meaningfully while adapting to the contributions of others.
+    \item \textbf{Scalability:} This structure can accommodate a wide range of roles, question subjects and difficulty levels, making it flexible for various types of queries.
+\end{enumerate}
+
+By building a collaborative and iterative process among specialists, stem cell nodes should ensure that the aggregated response is not only well-rounded but also robust against potential flaws or oversights. 
+
+\subsection{Aggregator node}
+The aggregator node serves as an intermediary between stem cell nodes and the DNA node, playing a crucial role in organizing and summarizing information while reducing computational overhead for the DNA node to process. The primary role of the aggregator node is to combine the responses of all specialists within a group into a single consolidated answer. This ensures that the DNA node receives a streamlined input, thereby reducing its computational burden and allowing it to focus on higher-level decision-making. The aggregator node \textbf{DOES NOT} assess the quality of individual responses or assign different weights to them. Instead, it prioritizes maintaining the originality of each contribution, which ensures that every specialist’s perspective is represented, and prevents the loss of potentially critical insights. While aiming to preserve the depth and diversity of the input, the aggregator node also considers efficiency. It combines the answers in a manner that balances the richness of the content with the need to avoid redundancy, unnecessary verbosity or repetition.
+

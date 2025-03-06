@@ -1,0 +1,68 @@
+{
+  "topics": [
+    {
+      "title": "Fundamental Physics and Cosmology",
+      "openQuestions": [
+        "What is the nature of dark matter and dark energy?",
+        "How did the universe begin, and what is its ultimate fate?",
+        "Are there extra dimensions beyond the four we experience?",
+        "What is the true nature of quantum gravity?"
+      ],
+      "whyChallengingForAI": "These questions require deep theoretical understanding, complex mathematical modeling, and the ability to reason about abstract concepts and vast scales.",
+      "potentialForCollectiveIntelligence": [
+        "Analyzing vast datasets from cosmological observations and particle physics experiments.",
+        "Exploring different theoretical models and searching for patterns and anomalies.",
+        "Developing new mathematical frameworks and simulation tools.",
+        "Collaborating on complex calculations and hypothesis testing."
+      ]
+    },
+    {
+      "title": "Origin and Nature of Life",
+      "openQuestions": [
+        "How did life originate on Earth?",
+        "Are there fundamental principles that govern the emergence of life?",
+        "What are the limits of life as we know it?",
+        "Is there life elsewhere in the universe?"
+      ],
+      "whyChallengingForAI": "This domain involves complex biological processes, evolutionary dynamics, and the ability to reason about emergent properties and self-organization.",
+      "potentialForCollectiveIntelligence": [
+        "Simulating different scenarios for the origin of life.",
+        "Analyzing genomic data and evolutionary trees.",
+        "Exploring the potential for artificial life in different environments.",
+        "Developing new tools for understanding and measuring complexity in biological systems."
+      ]
+    },
+    {
+      "title": "Consciousness and the Nature of Mind",
+      "openQuestions": [
+        "What is consciousness, and how does it arise?",
+        "Can machines be conscious?",
+        "How does the brain give rise to subjective experience?",
+        "What is the relationship between mind and matter?"
+      ],
+      "whyChallengingForAI": "This is perhaps the most profound and challenging domain, requiring an understanding of subjective experience, self-awareness, and the nature of qualia (the subjective qualities of experience).",
+      "potentialForCollectiveIntelligence": [
+        "Simulating different models of consciousness.",
+        "Analyzing brain activity and cognitive processes.",
+        "Exploring the potential for artificial consciousness.",
+        "Developing new frameworks for understanding the relationship between information processing and subjective experience."
+      ]
+    },
+    {
+      "title": "Advanced Mathematics",
+      "openQuestions": [
+        "The Riemann Hypothesis (distribution of prime numbers)",
+        "The Hodge Conjecture (algebraic geometry)",
+        "The P versus NP problem (computational complexity)",
+        "The Navier-Stokes Existence and Smoothness problem (fluid dynamics)"
+      ],
+      "whyChallengingForAI": "These problems require deep mathematical reasoning, the ability to manipulate abstract concepts, and potentially the development of new mathematical tools and techniques.",
+      "potentialForCollectiveIntelligence": [
+        "Exploring different approaches and proof strategies.",
+        "Searching for patterns and connections in mathematical structures.",
+        "Developing new algorithms and computational methods.",
+        "Collaborating on complex calculations and formal verification."
+      ]
+    }
+  ]
+}

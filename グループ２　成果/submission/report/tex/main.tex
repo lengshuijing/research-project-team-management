@@ -1,0 +1,36 @@
+\documentclass{article}
+
+\usepackage[square, sort, comma, numbers]{natbib}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{../sty/arxiv}
+\usepackage{setspace}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc} % use 8-bit T1 fonts
+\usepackage{hyperref} % hyperlinks
+\usepackage{url} % simple URL typesetting
+\usepackage{booktabs} % professional-quality tables
+\usepackage{amsfonts} % blackboard math symbols
+\usepackage{nicefrac} % compact symbols for 1/2, etc.
+\usepackage{microtype} % microtypography
+\usepackage{lipsum}
+\usepackage{mathtools}
+\usepackage{epigraph}
+\usepackage{csquotes}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+	% front matter
+	\input{tex/frontmatter}
+
+	% sections
+	\input{tex/body}
+
+	\newpage
+
+	% sections
+	% \nocite{*}
+	\bibliographystyle{unsrt}
+	\bibliography{bib/main}
+\end{document}
